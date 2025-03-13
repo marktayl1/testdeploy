@@ -5,13 +5,21 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "16641516074786716268"
+      "templateHash": "10220923861294634841"
     }
   },
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "mmcli"
+      "defaultValue": ""
+    },
+    "backEndVersion": {
+      "type": "string",
+      "defaultValue": "dev312b"
+    },
+    "frontEndVersion": {
+      "type": "string",
+      "defaultValue": "dev312h"
     },
     "location": {
       "type": "string",
@@ -150,7 +158,7 @@
           "containers": [
             {
               "name": "cmsabackend",
-              "image": "cmsacontainerreg.azurecr.io/cmsabackend:dev311b",
+              "image": "[format('cmsacontainerreg.azurecr.io/cmsabackend:{0}', parameters('backEndVersion'))]",
               "env": [
                 {
                   "name": "COSMOSDB_ENDPOINT",
@@ -5569,7 +5577,7 @@
                     "value": "[format('https://{0}', reference(resourceId('Microsoft.App/containerApps', toLower(format('{0}containerBackend', parameters('name')))), '2023-05-01').configuration.ingress.fqdn)]"
                   }
                 ],
-                "image": "cmsacontainerreg.azurecr.io/cmsafrontend:dev311a",
+                "image": "[format('cmsacontainerreg.azurecr.io/cmsafrontend:{0}', parameters('frontEndVersion'))]",
                 "name": "cmsafrontend",
                 "resources": {
                   "cpu": "1",
