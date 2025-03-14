@@ -5,14 +5,14 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "12028233006272830519"
+      "templateHash": "2354965883401523852"
     }
   },
   "parameters": {
-    "prefix": {
+    "ResourcePrefix": {
       "type": "string"
     },
-    "authorization": {
+    "Authorization": {
       "type": "bool",
       "defaultValue": false
     },
@@ -50,8 +50,8 @@
     }
   },
   "variables": {
-    "backEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoauth')]",
-    "frontEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoauth')]",
+    "backEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
+    "frontEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
     "location": "[resourceGroup().location]",
     "dblocation": "[resourceGroup().location]",
     "cosmosdbDatabase": "cmsadb",
@@ -61,7 +61,7 @@
     "deploymentType": "GlobalStandard",
     "containerName": "appstorage",
     "llmModel": "gpt-4o",
-    "prefixCleaned": "[replace(toLower(parameters('prefix')), '-', '')]",
+    "prefixCleaned": "[replace(toLower(parameters('ResourcePrefix')), '-', '')]",
     "storageSkuName": "Standard_LRS",
     "storageContainerName": "[format('{0}contstorage', variables('prefixCleaned'))]",
     "gptModelVersion": "2024-08-06",
