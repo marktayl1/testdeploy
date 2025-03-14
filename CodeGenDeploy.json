@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "3513710971125854976"
+      "templateHash": "7487367246934664874"
     }
   },
   "parameters": {
@@ -44,6 +44,13 @@
         "westus3"
       ]
     },
+    "llmModel": {
+      "type": "string",
+      "allowedValues": [
+        "gpt-4o",
+        "gpt-4"
+      ]
+    },
     "capacity": {
       "type": "int",
       "defaultValue": 5
@@ -60,7 +67,6 @@
     "cosmosdbLogContainer": "cmsalog",
     "deploymentType": "GlobalStandard",
     "containerName": "appstorage",
-    "llmModel": "gpt-4o",
     "prefixCleaned": "[replace(toLower(parameters('prefix')), '-', '')]",
     "storageSkuName": "Standard_LRS",
     "storageContainerName": "[format('{0}contstorage', variables('prefixCleaned'))]",
@@ -69,8 +75,8 @@
     "aiServicesName": "[format('{0}-aiservices', variables('prefixCleaned'))]",
     "aiModelDeployments": [
       {
-        "name": "[variables('llmModel')]",
-        "model": "[variables('llmModel')]",
+        "name": "[parameters('llmModel')]",
+        "model": "[parameters('llmModel')]",
         "version": "[variables('gptModelVersion')]",
         "sku": {
           "name": "[variables('deploymentType')]",
@@ -187,31 +193,31 @@
                 },
                 {
                   "name": "MIGRATOR_AGENT_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "PICKER_AGENT_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "FIXER_AGENT_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "SEMANTIC_VERIFIER_AGENT_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "SYNTAX_CHECKER_AGENT_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "SELECTION_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 },
                 {
                   "name": "TERMINATION_MODEL_DEPLOY",
-                  "value": "[variables('llmModel')]"
+                  "value": "[parameters('llmModel')]"
                 }
               ],
               "resources": {
@@ -561,7 +567,7 @@
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault'), '2022-09-01').outputs.keyvaultName.value]"
           },
           "gptModelName": {
-            "value": "[variables('llmModel')]"
+            "value": "[parameters('llmModel')]"
           },
           "gptModelVersion": {
             "value": "[variables('gptModelVersion')]"
