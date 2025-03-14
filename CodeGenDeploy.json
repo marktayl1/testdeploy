@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "3513710971125854976"
+      "templateHash": "12028233006272830519"
     }
   },
   "parameters": {
@@ -14,7 +14,7 @@
     },
     "authorization": {
       "type": "bool",
-      "defaultValue": true
+      "defaultValue": false
     },
     "AiLocation": {
       "type": "string",
@@ -50,8 +50,8 @@
     }
   },
   "variables": {
-    "backEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoath')]",
-    "frontEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoath')]",
+    "backEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoauth')]",
+    "frontEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoauth')]",
     "location": "[resourceGroup().location]",
     "dblocation": "[resourceGroup().location]",
     "cosmosdbDatabase": "cmsadb",
