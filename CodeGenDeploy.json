@@ -5,21 +5,53 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "18205869637057802702"
+      "templateHash": "2354965883401523852"
     }
   },
   "parameters": {
-    "prefix": {
+    "ResourcePrefix": {
       "type": "string"
     },
-    "authorization": {
+    "Authorization": {
       "type": "bool",
-      "defaultValue": true
+      "defaultValue": false
+    },
+    "AiLocation": {
+      "type": "string",
+      "allowedValues": [
+        "australiaeast",
+        "brazilsouth",
+        "canadacentral",
+        "canadaeast",
+        "eastus",
+        "eastus2",
+        "francecentral",
+        "germanywestcentral",
+        "japaneast",
+        "koreacentral",
+        "northcentralus",
+        "norwayeast",
+        "polandcentral",
+        "southafricanorth",
+        "southcentralus",
+        "southindia",
+        "swedencentral",
+        "switzerlandnorth",
+        "uaenorth",
+        "uksouth",
+        "westeurope",
+        "westus",
+        "westus3"
+      ]
+    },
+    "capacity": {
+      "type": "int",
+      "defaultValue": 5
     }
   },
   "variables": {
-    "backEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoath')]",
-    "frontEndVersion": "[if(parameters('authorization'), 'rcauth', 'rcnoath')]",
+    "backEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
+    "frontEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
     "location": "[resourceGroup().location]",
     "dblocation": "[resourceGroup().location]",
     "cosmosdbDatabase": "cmsadb",
@@ -27,10 +59,9 @@
     "cosmosdbFileContainer": "cmsafile",
     "cosmosdbLogContainer": "cmsalog",
     "deploymentType": "GlobalStandard",
-    "containerName": "containerappstorage",
-    "AiLocation": "japaneast",
+    "containerName": "appstorage",
     "llmModel": "gpt-4o",
-    "prefixCleaned": "[replace(toLower(parameters('prefix')), '-', '')]",
+    "prefixCleaned": "[replace(toLower(parameters('ResourcePrefix')), '-', '')]",
     "storageSkuName": "Standard_LRS",
     "storageContainerName": "[format('{0}contstorage', variables('prefixCleaned'))]",
     "gptModelVersion": "2024-08-06",
@@ -43,7 +74,7 @@
         "version": "[variables('gptModelVersion')]",
         "sku": {
           "name": "[variables('deploymentType')]",
-          "capacity": 5
+          "capacity": "[parameters('capacity')]"
         },
         "raiPolicyName": "Microsoft.Default"
       }
@@ -524,13 +555,10 @@
             "value": "[variables('prefixCleaned')]"
           },
           "solutionLocation": {
-            "value": "[variables('AiLocation')]"
+            "value": "[parameters('AiLocation')]"
           },
           "keyVaultName": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, resourceGroup().name), 'Microsoft.Resources/deployments', 'deploy_keyvault'), '2022-09-01').outputs.keyvaultName.value]"
-          },
-          "deploymentType": {
-            "value": "[variables('deploymentType')]"
           },
           "gptModelName": {
             "value": "[variables('llmModel')]"
@@ -558,7 +586,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.33.93.31351",
-              "templateHash": "18345092726830605685"
+              "templateHash": "10270252950808398257"
             }
           },
           "parameters": {
@@ -569,9 +597,6 @@
               "type": "string"
             },
             "keyVaultName": {
-              "type": "string"
-            },
-            "deploymentType": {
               "type": "string"
             },
             "gptModelName": {
@@ -598,8 +623,6 @@
             "storageSkuName": "Standard_LRS",
             "aiServicesName": "[format('{0}-aiservices', parameters('solutionName'))]",
             "workspaceName": "[format('{0}-workspace', parameters('solutionName'))]",
-            "applicationInsightsName": "[format('{0}-appinsights', parameters('solutionName'))]",
-            "containerRegistryName": "[format('{0}acr', parameters('solutionName'))]",
             "keyvaultName": "[format('{0}-kv', parameters('solutionName'))]",
             "location": "[parameters('solutionLocation')]",
             "aiHubName": "[format('{0}-aihub', parameters('solutionName'))]",
@@ -608,7 +631,6 @@
             "aiProjectName": "[format('{0}-aiproject', parameters('solutionName'))]",
             "aiProjectFriendlyName": "[variables('aiProjectName')]",
             "aiSearchName": "[format('{0}-search', parameters('solutionName'))]",
-            "containerRegistryNameCleaned": "[replace(variables('containerRegistryName'), '-', '')]",
             "storageNameCleaned": "[replace(variables('storageName'), '-', '')]"
           },
           "resources": [
