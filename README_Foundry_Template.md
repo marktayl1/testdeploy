@@ -8,10 +8,6 @@ Table of contents: [**User story**](#user-story) \| [**One-click deploy**](#one-
 
 ## User story
 
----
-
-</br>
-
 **Overview**
 
 Welcome to the *Modernize your code* solution accelerator, designed to help customers transition their SQL queries to new environments quickly and efficiently. This accelerator is particularly useful for organizations modernizing their data estates, as it simplifies the process of translating SQL queries from various dialects.
@@ -43,6 +39,8 @@ The *Modernize your code* solution accelerator allows users to specify a group o
 <img class="dark-img" src=".\documentation\images\keyFeaturesDark.png"" alt="Dark theme version"> -->
 
 </br>
+</br>
+
 
 Below is an image of the solution accelerator:
 
@@ -94,55 +92,19 @@ This diagram double-clicks into the agentic framework for the code conversion pr
 
 ## One-click deploy
 
----
-
-<br/>
-
 **Prerequisites**
 
-To use this solution accelerator, you will need access to an [Azure subscription](https://azure.microsoft.com/free/) with permission to create resource groups and resources. For more detailed prerequisites, review the deployment options in the following section.
+* To use this solution accelerator, you will need access to an [Azure subscription](https://azure.microsoft.com/free/) with permission to create resource groups and resources. For more detailed prerequisites, review the deployment options in the following section.
 
-**Deployment options**
+* This accelerator can be deployed with or without authentication. 
 
-Pick from the options below to see step-by-step instructions for the various deployment options. We recommend Bicep because it is the fastest and easiest way to get started.We recommend using the first option (Bicep) because it is the fastest and easiest way to get started.
-
-<details>
-  <summary><b>Quick deploy using AZD</b></summary>
-
-### Deploy in your local environment using Azure Developer CLI
-
-This is the fastest way to get the solution deployed and uses the command line interface. We recommend this option when you're trying out a solution. Visit [Microsoft Learn](https://learn.microsoft.com/en-us/azure/deployment-environments/concept-azure-developer-cli-with-deployment-environments) if you want to learn more about AZD deployments. Follow the steps below to get started:
-
-1. Make sure the following tools are installed:
-
-    * [Azure Developer CLI (azd)](https://aka.ms/install-azd)
-    * [Python 3.9+](https://www.python.org/downloads/)
-    * [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-    * [Git](https://git-scm.com/downloads)
-
-2. Download the project code:
-
-    ```shell
-    azd init -t azureai-basic-python
-    ```
-
-3. Open the project folder in your terminal or editor.
-
-</details>
-
-<details>
-  <summary><b>Deploy with Bicep</b></summary>
+  * To install with authentication requires that the installer have the rights to create and register an application identity in their Azure environment.
+  This is controlled through the Authorization field in the installation form. If you do not have this permission, or are not sure, you can start with the no authorization option to view and experiment with the accelerator.
+  * Note: If you install with authentication, all processing history and current processing will be performed for your specific user. If you deploy without authentication, all batch history from the tool will be visible to all users.
  
-### Deploy with Bicep
+**Deploy with Bicep**
 
 1. Please check the link [Azure Products by Region](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=all&regions=all) and choose a region where Azure AI Search, Azure OpenAI services, Azure AI Foundry Services are available. 
-
-1. **Prerequisites**  
-    This accelerator can be deployed with or without authentication. This is controlled through the Authorization field in the installation form. Installing this accelerator with authorization requires that the installer have the rights to create and register an application identity in their Azure environment. If you do not have this permission, or are not sure, you can start with the no authorization option to view and experiment with the accelerator.
-
-    Impacts: 
-    * If you install with authentication, all processing history and current processing will be performed for your specific user.  
-    * If you deploy without authentication, all batch history from the tool will be visible to all users.
 
 1. **Deploy Azure resources**  
    Click the following deployment button to create the required resources for this accelerator directly in your Azure Subscription.
@@ -151,64 +113,21 @@ This is the fastest way to get the solution deployed and uses the command line i
 
 
 
-   1.  Most fields will have a default name set already. You will need to update the following Azure OpenAI settings:
+   Most fields will have a default name set already. You will need to update the following Azure OpenAI settings:
 
-       -  Region - the region where the resources will be created in
+    -  Region - the region where the resources will be created in
 
-       -  Authorization - Controls whether you would like to install with authorization enabled
+    -  Authorization - Controls whether you would like to install with authorization enabled
 
-       -  Solution Prefix - provide a 6 alphanumeric value that will be used to prefix resources
-      
-       -  Other Location - location of resources (required for Azure SQL and CosmoDB resources)
-           
-1.  **Add App Authentication**
-   
-    Follow steps in [App Authentication](./Documents/AppAuthentication.md) to configure authenitcation in app service.
-</details>
+    -  Solution Prefix - provide a 6 alphanumeric value that will be used to prefix resources
 
-<details>
-  <summary><b>Deploy in GitHub Codespaces</b></summary>
-
- ### Deploy in GitHub Codpespaces
-
-You can run this template virtually by using GitHub Codespaces. The button will open a web-based VS Code instance in your browser:
-
-1. Open the template (this may take several minutes):
-
-    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/azureai-basic-python)
-
-2. Open a terminal window
-3. Continue with the [deploying steps](#deploying)
-
-</details>
-
-<details>
-  <summary><b>Deploy in VS Code</b></summary>
-
- ### Deploy in VS Code Dev Containers
-
-A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
-
-1. Start Docker Desktop (install it if not already installed)
-2. Open the project:
-
-    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/azureai-basic-python)
-
-3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
-4. Continue with the [deploying steps](#deploying)
-
-</details>
+    -  Other Location - location of resources (required for Azure SQL and CosmoDB resources)
 
 <br/>
 
 <img src="./documentation/images/supportingDocuments.png" width="64" style="max-width: 100%;">
 
 ## Supporting documents
-
-
----
-
-<br/>
 
 **Additional resources**
 
@@ -232,10 +151,6 @@ Please refer to [Transparency FAQ](./TRANSPARENCY_FAQ.md) for responsible AI tra
 <img src="./documentation/images/customerTruth.png" width="64" style="max-width: 100%;">
 
 ## Customer truth
-
----
-
-<br/>
 
 Customer stories coming soon.
 
