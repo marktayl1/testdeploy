@@ -5,16 +5,22 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "2354965883401523852"
+      "templateHash": "15540996858742966545"
     }
   },
   "parameters": {
     "ResourcePrefix": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "Prefix for all resources created by this template.  This prefix will be used to create unique names for all resources.  The prefix must be unique within the resource group."
+      }
     },
     "Authorization": {
       "type": "bool",
-      "defaultValue": false
+      "defaultValue": false,
+      "metadata": {
+        "description": "Authorization requires permission to create an app identity in the subscription.  See readme for details."
+      }
     },
     "AiLocation": {
       "type": "string",
