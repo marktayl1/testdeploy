@@ -5,12 +5,13 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "15540996858742966545"
+      "templateHash": "6526264619515692785"
     }
   },
   "parameters": {
     "ResourcePrefix": {
       "type": "string",
+      "defaultValue": "preth",
       "metadata": {
         "description": "Prefix for all resources created by this template.  This prefix will be used to create unique names for all resources.  The prefix must be unique within the resource group."
       }
@@ -48,7 +49,10 @@
         "westeurope",
         "westus",
         "westus3"
-      ]
+      ],
+      "metadata": {
+        "description": "Location for all Ai services resources. This location can be different from the resource group location."
+      }
     },
     "capacity": {
       "type": "int",
@@ -56,6 +60,9 @@
     }
   },
   "variables": {
+    "uniqueSuffix": "[uniqueString(resourceGroup().id, parameters('ResourcePrefix'))]",
+    "randomSuffix": "[substring(variables('uniqueSuffix'), 0, 4)]",
+    "finalName": "[format('{0}-{1}', parameters('ResourcePrefix'), variables('randomSuffix'))]",
     "backEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
     "frontEndVersion": "[if(parameters('Authorization'), 'rcauth', 'rcnoauth')]",
     "location": "[resourceGroup().location]",
@@ -67,7 +74,7 @@
     "deploymentType": "GlobalStandard",
     "containerName": "appstorage",
     "llmModel": "gpt-4o",
-    "prefixCleaned": "[replace(toLower(parameters('ResourcePrefix')), '-', '')]",
+    "prefixCleaned": "[replace(toLower(variables('finalName')), '-', '')]",
     "storageSkuName": "Standard_LRS",
     "storageContainerName": "[format('{0}contstorage', variables('prefixCleaned'))]",
     "gptModelVersion": "2024-08-06",
